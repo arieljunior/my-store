@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cart_itens",
+  "info": {
+    "singularName": "cart-item",
+    "pluralName": "cart-itens",
+    "displayName": "Itens carrinho"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quantity": {
+      "type": "integer"
+    },
+    "unit_price": {
+      "type": "decimal"
+    },
+    "produto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "carrinho": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cart.cart",
+      "inversedBy": "itens_carrinho"
+    }
+  }
+}
