@@ -4,6 +4,8 @@ import { Button } from "@mui/material";
 import Layout from "../components/Layout";
 import Home from "../pages/home";
 import Register from "../pages/register";
+import Login from "../pages/login";
+import Products from "../pages/products";
 
 export const Routers = () => {
   return (
@@ -15,9 +17,9 @@ export const Routers = () => {
             <Home/>
           }
         />
-        <Route path="/login" element={<>Login</>} />
+        <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/products" element={<></>} />
+        <Route path="/products" element={<Products/>} />
         <Route path="/product/:id" element={<></>} />
 
         <Route element={<ProtectedRoute />}>

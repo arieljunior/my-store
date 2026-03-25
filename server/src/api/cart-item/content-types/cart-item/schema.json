@@ -4,7 +4,7 @@
   "info": {
     "singularName": "cart-item",
     "pluralName": "cart-itens",
-    "displayName": "Itens carrinho"
+    "displayName": "Itens do carrinho"
   },
   "options": {
     "draftAndPublish": true
@@ -14,19 +14,15 @@
     "quantity": {
       "type": "integer"
     },
-    "unit_price": {
-      "type": "decimal"
-    },
-    "produto": {
+    "product": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::product.product"
     },
-    "carrinho": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::cart.cart",
-      "inversedBy": "itens_carrinho"
+      "target": "plugin::users-permissions.user"
     }
   }
 }

@@ -433,7 +433,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiCartItemCartItem extends Struct.CollectionTypeSchema {
   collectionName: 'cart_itens';
   info: {
-    displayName: 'Itens carrinho';
+    displayName: 'Itens do carrinho';
     pluralName: 'cart-itens';
     singularName: 'cart-item';
   };
@@ -441,7 +441,6 @@ export interface ApiCartItemCartItem extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    carrinho: Schema.Attribute.Relation<'oneToOne', 'api::cart.cart'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -451,42 +450,13 @@ export interface ApiCartItemCartItem extends Struct.CollectionTypeSchema {
       'api::cart-item.cart-item'
     > &
       Schema.Attribute.Private;
-    produto: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer;
-    unit_price: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiCartCart extends Struct.CollectionTypeSchema {
-  collectionName: 'carts';
-  info: {
-    displayName: 'Carrinho';
-    pluralName: 'carts';
-    singularName: 'cart';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    itens_carrinho: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::cart-item.cart-item'
-    >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
+    user: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
     >;
@@ -1069,7 +1039,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::cart-item.cart-item': ApiCartItemCartItem;
-      'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
       'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;

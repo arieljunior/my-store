@@ -1,0 +1,63 @@
+### Buscar produtos
+GET http://localhost:1337/api/products
+?populate=image
+&pagination[pageSize]=1
+&pagination[page]=1
+&filters[$or][0][title][$contains]=abc
+&filters[$or][1][description][$contains]=descr
+
+### Buscar categoria
+GET http://localhost:1337/api/categories
+
+### Login
+POST http://localhost:1337/api/auth/local
+Content-Type: application/json
+
+{
+    "identifier": "teste1",
+    "password": "123456"
+}
+
+### Criar usuário
+POST http://localhost:1337/api/auth/local/register HTTP/1.1
+Content-Type: application/json
+
+{
+	"username": "teste1",
+    "email": "teste1@teste.com",
+    "password": "123456"
+}
+
+### Listar itens do carrinho do usuário logado
+GET http://localhost:1337/api/cart-itens?populate[product][populate][image]=*
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzc0Mzk0NTM3LCJleHAiOjE3NzY5ODY1Mzd9.NK0v9JiMElbQjgnASWiQe6hZVaJQr6s52dyxjgDfCWQ
+
+
+### Adicionar Produto no Carrinho do usuário logado
+POST http://localhost:1337/api/cart-itens
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzc0Mzk0NTM3LCJleHAiOjE3NzY5ODY1Mzd9.NK0v9JiMElbQjgnASWiQe6hZVaJQr6s52dyxjgDfCWQ
+
+{
+	"data":{
+		"quantity": 1,
+		"product": "mwzqceh48c07bio1r4wgeu4r"
+	}
+}
+
+### Atualizar Produto do carrinho
+PUT http://localhost:1337/api/cart-itens/hhte5hs0w56fvejuv9lpa2pw
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzc0Mzk0NTM3LCJleHAiOjE3NzY5ODY1Mzd9.NK0v9JiMElbQjgnASWiQe6hZVaJQr6s52dyxjgDfCWQ
+
+{
+	"data": {
+        "quantity": 2
+    }
+}
+
+### Deletar produto do carrinho
+DELETE http://localhost:1337/api/cart-itens/hhte5hs0w56fvejuv9lpa2pw
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzc0Mzk0NTM3LCJleHAiOjE3NzY5ODY1Mzd9.NK0v9JiMElbQjgnASWiQe6hZVaJQr6s52dyxjgDfCWQ
