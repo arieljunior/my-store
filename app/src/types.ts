@@ -32,3 +32,18 @@ export interface AuthResponse {
   jwt: string;
   user: User;
 }
+
+export interface CartItem {
+  id: number;
+  documentId: string;
+  quantity: number;
+  product: {
+    id: number;
+    documentId: string;
+    title: string;
+    price: number;
+    image?: {
+      url: string;
+    };
+  };
+}

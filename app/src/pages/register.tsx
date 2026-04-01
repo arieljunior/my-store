@@ -11,8 +11,12 @@ import { api } from "../services/api";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import type { AuthResponse } from "../types";
+import { useAppDispatch } from "../store";
+import { setCredentials } from "../store/slices/auth-slice";
 
 function Register() {
+  const dispatch = useAppDispatch();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +31,7 @@ function Register() {
       return response.data;
     },
     onSuccess: (data) => {
-      // dispatch(setCredentials({ user: data.user, token: data.jwt }));
+      dispatch(setCredentials({ user: data.user, token: data.jwt }));
       toast.success("Cadastro realizado com sucesso!");
     },
   });
@@ -90,7 +94,7 @@ function Register() {
             sx={{ mt: 3, mb: 2 }}
             disabled={registerMutation.isPending}
           >
-            {registerMutation.isPending ? 'Cadastrando...' : 'Registrar'}
+            {registerMutation.isPending ? "Cadastrando..." : "Registrar"}
           </Button>
         </Box>
       </Box>

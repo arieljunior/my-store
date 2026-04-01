@@ -1,0 +1,35 @@
+semana 1
+- corrigir git
+- testar a api
+- configurar tema dark
+- Layout
+- / Home
+- card-feature
+- /register
+
+
+Semana 2
+- refatorar o Header
+- /login
+- /products
+    - filtro (title, description)
+    - debounce
+    - paginação
+    - skeleton
+- conectar com servidor
+- utilizar tanstack 
+- configurar o axios
+- detalhes do produto (/product/:id)
+
+Semana 3 
+- Configurar Redux
+- Configurar a Store Auth
+- Adaptar interceptors axios com Auth
+- Adaptar Header
+- Adicionar submit na tela login e registro
+- Configurar Store cart
+- Configurar actions asyncThunk
+
+Semana 4
+- Adaptar detalhes com carrinho
+- Criar página de carrinho

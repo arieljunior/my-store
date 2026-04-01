@@ -1,6 +1,58 @@
-import { Box, Button, Container, Paper, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useAppDispatch } from "../store";
+import { useNavigate } from "react-router";
+import { useCallback, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { api } from "../services/api";
+import type { AuthResponse } from "../types";
+import { setCredentials } from "../store/slices/auth-slice";
+import { toast } from "react-toastify";
 
 function Login() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+
+  const loginMutation = useMutation({
+    mutationFn: async () => {
+      const response = await api.post<AuthResponse>("/auth/local", {
+        identifier,
+        password,
+      });
+      return response.data;
+    },
+    onSuccess: (data) => {
+      dispatch(setCredentials({ user: data.user, token: data.jwt }));
+
+      toast.success(`Bem-vindo de volta, ${data.user.username}!`);
+      navigate("/");
+    },
+    onError: () => {
+      toast.error("Credenciais inválidas. Tente novamente.");
+    },
+  });
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!identifier || !password) {
+        toast.warning("Por favor, preencha todos os campos.");
+        return;
+      }
+      loginMutation.mutate();
+    },
+    [identifier, password],
+  );
+
   return (
     <Box
       sx={{
@@ -34,7 +86,7 @@ function Login() {
           >
             Acessar Conta
           </Typography>
-          <Box component="form" onSubmit={() => {}}>
+          <Box component="form" onSubmit={handleSubmit}>
             <TextField
               margin="normal"
               required
@@ -42,21 +94,20 @@ function Login() {
               label="Email ou Nome de Usuário"
               autoComplete="email"
               autoFocus
-              //   value={identifier}
-              //   onChange={(e) => setIdentifier(e.target.value)}
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
             />
-          </Box>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Senha"
-            type="password"
-            autoComplete="current-password"
-            //   value={password}
-            //   onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="Senha"
+              type="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -65,11 +116,11 @@ function Login() {
                 mb: 2,
                 py: 1.2,
               }}
-            //   disabled={loginMutation.isPending}
+              disabled={loginMutation.isPending}
             >
-              {/* {loginMutation.isPending ? 'Entrando...' : 'Entrar'} */}
-              Entrar
+              {loginMutation.isPending ? "Entrando..." : "Entrar"}
             </Button>
+          </Box>
         </Paper>
       </Container>
     </Box>
