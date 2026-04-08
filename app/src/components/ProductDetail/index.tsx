@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import { ShieldCheck, ShoppingCart, Truck } from "lucide-react";
 import type { Product } from "../../types";
-import { generateImageUrlProduct } from "../../utils/generateImageProduct";
+import { getImageUrlProduct } from "../../utils/generateImageProduct";
 export { default as ProductDetailSkeleton } from './Skeleton';
 
 interface ProductDetailProps {
@@ -11,7 +11,7 @@ interface ProductDetailProps {
 
 function ProductDetail({ onAddToCart, product }: ProductDetailProps) {
   const { title, price, description, image, stock } = product;
-  const imageUrl = generateImageUrlProduct(image?.url);
+  const imageUrl = getImageUrlProduct(image?.url);
 
   return (
     <Paper

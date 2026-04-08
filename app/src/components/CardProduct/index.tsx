@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ShoppingCart } from "lucide-react";
-import { generateImageUrlProduct } from "../../utils/generateImageProduct";
+import { getImageUrlProduct } from "../../utils/generateImageProduct";
 export { default as CardSkeleton } from './Skeleton';
 
 interface CardProductProps {
@@ -22,7 +22,7 @@ function CardProduct({ product }: CardProductProps) {
 
   const { documentId, title, price, description, image } = product;
 
-  const imageUrl = generateImageUrlProduct(image?.url);
+  const imageUrl = getImageUrlProduct(image?.url);
 
   return (
     <Card

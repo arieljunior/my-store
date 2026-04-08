@@ -47,3 +47,7 @@ export interface CartItem {
     };
   };
 }
+
+export interface ResponseCartItems {
+  data: CartItem[];
+}

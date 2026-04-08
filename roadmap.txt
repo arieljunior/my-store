@@ -27,9 +27,10 @@ Semana 3
 - Adaptar interceptors axios com Auth
 - Adaptar Header
 - Adicionar submit na tela login e registro
-- Configurar Store cart
-- Configurar actions asyncThunk
+
 
 Semana 4
+- Configurar Store cart
+- Configurar actions asyncThunk
 - Adaptar detalhes com carrinho
 - Criar página de carrinho

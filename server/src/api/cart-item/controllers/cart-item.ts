@@ -15,6 +15,7 @@ export default factories.createCoreController(
       const entities = await strapi.entityService.findMany("api::cart-item.cart-item", {
         ...ctx.query,
         filters: {
+          ...(ctx.query.filters as object),
           user: user.id,
         },
       });

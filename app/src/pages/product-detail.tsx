@@ -6,8 +6,14 @@ import { MINUTES_30 } from "../constants";
 import { api } from "../services/api";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
-import ProductDetail, { ProductDetailSkeleton } from "../components/ProductDetail";
+import ProductDetail, {
+  ProductDetailSkeleton,
+} from "../components/ProductDetail";
 import { ArrowLeft } from "lucide-react";
+import { useAppDispatch } from "../store";
+import { addCartItem } from "../store/slices/cart-slice";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../store/slices/auth-slice";
 
 interface ResponseSingleProduct {
   data: Product;
@@ -16,6 +22,8 @@ interface ResponseSingleProduct {
 function PageProductDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const {isAuthenticated} = useSelector(selectAuth)
 
   const {
     data: productData,
@@ -31,11 +39,19 @@ function PageProductDetail() {
     staleTime: MINUTES_30,
   });
 
-  const handleAddToCart = useCallback(() => {
-    toast.success(
-      `Produto "${productData?.data.title}" adicionado ao carrinho!`,
-    );
-  }, [productData]);
+  const handleAddToCart = useCallback(async () => {
+    if (!isAuthenticated) return navigate("/login")
+
+    if (!productData?.data) return;
+    try {
+      await dispatch(addCartItem(productData.data)).unwrap();
+      toast.success(
+        `Produto "${productData.data.title}" adicionado ao carrinho!`,
+      );
+    } catch {
+      toast.error("Não foi possível adicionar o produto ao carrinho.");
+    }
+  }, [productData, dispatch, toast, isAuthenticated]);
 
   if (isLoading) {
     return (
@@ -71,7 +87,7 @@ function PageProductDetail() {
       >
         Voltar para a vitrine
       </Button>
-      <ProductDetail onAddToCart={handleAddToCart} product={productData.data}/>
+      <ProductDetail onAddToCart={handleAddToCart} product={productData.data} />
     </Box>
   );
 }
