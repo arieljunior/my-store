@@ -43,6 +43,7 @@ function PageProductDetail() {
     if (!isAuthenticated) return navigate("/login")
 
     if (!productData?.data) return;
+    
     try {
       await dispatch(addCartItem(productData.data)).unwrap();
       toast.success(
@@ -55,7 +56,7 @@ function PageProductDetail() {
 
   if (isLoading) {
     return (
-      <Box py={4}>
+      <Box py={4} data-testid="product-detail-loading">
         <ProductDetailSkeleton />
       </Box>
     );
@@ -63,7 +64,7 @@ function PageProductDetail() {
 
   if (isError || !productData) {
     return (
-      <Box textAlign="center" py={10}>
+      <Box textAlign="center" py={10} data-testid="product-detail-error">
         <Typography variant="h5" color="error" gutterBottom>
           Produto não encontrado.
         </Typography>

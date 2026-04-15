@@ -1,10 +1,13 @@
 import { Box, Button, Divider, Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router";
 
 interface CartSummaryProps {
   totalAmount: number;
   totalQuantity: number;
 }
 function CartSummary({ totalAmount, totalQuantity }: CartSummaryProps) {
+  const navigator = useNavigate();
+  
   return (
     <Paper variant="outlined" sx={{ p: 3 }}>
       <Typography variant="h6" fontWeight={700} gutterBottom>
@@ -30,7 +33,7 @@ function CartSummary({ totalAmount, totalQuantity }: CartSummaryProps) {
         </Typography>
       </Box>
 
-      <Button variant="contained" fullWidth size="large" disabled>
+      <Button variant="contained" fullWidth size="large" onClick={()=> navigator("/summary")}>
         Finalizar compra
       </Button>
     </Paper>

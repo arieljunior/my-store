@@ -1,39 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { api } from "../services/api";
 import { Box, TextField, Typography } from "@mui/material";
-import type { ResponseProducts } from "../types";
 import ProductList from "../components/ProductList";
-import { useDebounce } from "../hooks/useDebounce";
-import { MINUTES_30 } from "../constants";
+import { useProducts } from "../hooks/useProducts";
 
 
 function Products() {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [page, setPage] = useState<number>(1);
-  const pageSize = 1;
-
-  const debouncedSearch = useDebounce<string>(searchTerm, 500);
-
-  useEffect(() => {
-    setPage(1);
-  }, [debouncedSearch]);
-
-  const { data, isLoading, isError } = useQuery<ResponseProducts>({
-    queryKey: ["products", page, debouncedSearch],
-    queryFn: async () => {
-      let url = `/products?populate=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`;
-
-      if (debouncedSearch) {
-        url += `&filters[$or][0][title][$containsi]=${debouncedSearch}`;
-        url += `&filters[$or][1][description][$containsi]=${debouncedSearch}`;
-      }
-      const { data } = await api.get(url);
-      return data;
-    },
-    staleTime: MINUTES_30,
-    placeholderData: (previousData) => previousData,
-  });
+  const {
+    data,
+    isLoading,
+    isError,
+    page,
+    setPage,
+    searchTerm,
+    setSearchTerm,
+    debouncedSearch,
+    pageSize,
+  } = useProducts();
 
   return (
     <Box>

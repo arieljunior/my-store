@@ -1,8 +1,10 @@
 import {Grid, Box, Button, Paper, Typography } from "@mui/material";
 import { Headset, ShieldCheck, ShoppingBag, Truck } from "lucide-react";
 import CardFeature from "../components/CardFeature";
+import { useNavigate } from "react-router";
 
 function Home() {
+  const navigator = useNavigate();
   const features = [
     {
       icon: <Truck size={40} />,
@@ -63,7 +65,8 @@ function Home() {
           variant="contained"
           size="large"
           startIcon={<ShoppingBag />}
-          onClick={() => {}}
+          onClick={() => navigator("/products")}
+          data-testid="explore-products-button"
           sx={{
             px: 4,
             py: 1.5,

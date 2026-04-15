@@ -8,6 +8,7 @@ import Login from "../pages/login";
 import Products from "../pages/products";
 import ProductDetail from "../pages/product-detail";
 import CartPage from "../pages/cart";
+import SummaryPage from "../pages/summary";
 
 export const Routers = () => {
   return (
@@ -26,6 +27,7 @@ export const Routers = () => {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/cart" element={<CartPage/>} />
+          <Route path="/summary" element={<SummaryPage/>} />
         </Route>
       </Route>
     </Routes>

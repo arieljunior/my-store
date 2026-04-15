@@ -34,3 +34,15 @@ Semana 4
 - Configurar actions asyncThunk
 - Adaptar detalhes com carrinho
 - Criar página de carrinho
+
+IA
+- Conceitos básico e fundamentais
+- LLM's
+- Prompt 
+- Boas práticas
+- Testar prompts com copilot
+- arquivo de instruções
+- Revisão de código
+- Gerar uma nova página
+- Gerar refatoração
+- Gerar testes unitários
